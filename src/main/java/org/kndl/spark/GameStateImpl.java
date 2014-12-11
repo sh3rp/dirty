@@ -1,6 +1,5 @@
 package org.kndl.spark;
 
-import org.kndl.spark.model.Answer;
 import org.kndl.spark.model.Game;
 import org.kndl.spark.model.Player;
 import org.kndl.spark.model.Question;
@@ -22,16 +21,16 @@ public class GameStateImpl implements GameState {
     private Map<Long, Game> gamesById;
     private Map<Long, Question> questionsById;
     private Map<Long, Player> playersById;
-    private Map<String,Player> playersByEmail;
+    private Map<String, Player> playersByEmail;
 
     public GameStateImpl() {
         this.games = new HashSet<Game>();
         this.players = new HashSet<Player>();
         this.questions = new HashSet<Question>();
-        this.playersByEmail = new HashMap<String,Player>();
-        this.gamesById = new HashMap<Long,Game>();
-        this.questionsById = new HashMap<Long,Question>();
-        this.playersById = new HashMap<Long,Player>();
+        this.playersByEmail = new HashMap<String, Player>();
+        this.gamesById = new HashMap<Long, Game>();
+        this.questionsById = new HashMap<Long, Question>();
+        this.playersById = new HashMap<Long, Player>();
     }
 
     @Override
@@ -39,16 +38,16 @@ public class GameStateImpl implements GameState {
         Game game = new Game();
         game.setId(IDGEN.getAndIncrement());
         Player hostPlayer = null;
-        if(!playersByEmail.containsKey(host))
+        if (!playersByEmail.containsKey(host))
             game.setHost(newPlayer(host));
         else
             game.setHost(playersByEmail.get(host));
 
         Set<Player> gamePlayers = new HashSet<Player>();
 
-        for(String email : players) {
+        for (String email : players) {
             Player p = null;
-            if(!playersByEmail.containsKey(email))
+            if (!playersByEmail.containsKey(email))
                 gamePlayers.add(newPlayer(email));
             else
                 gamePlayers.add(playersByEmail.get(email));
@@ -56,7 +55,7 @@ public class GameStateImpl implements GameState {
         game.setPlayers(gamePlayers);
         game.setInProgress(true);
         games.add(game);
-        gamesById.put(game.getId(),game);
+        gamesById.put(game.getId(), game);
 
         return game;
     }
@@ -66,8 +65,8 @@ public class GameStateImpl implements GameState {
         Random r = new Random();
         int rIdx = r.nextInt(questions.size());
         int idx = 0;
-        for(Question q : questions) {
-            if(idx == rIdx)
+        for (Question q : questions) {
+            if (idx == rIdx)
                 return q;
             else
                 idx++;
@@ -91,7 +90,7 @@ public class GameStateImpl implements GameState {
     @Override
     public Game setAnswer(long gameId, String playerId, String answer) {
         Game game = gamesById.get(gameId);
-        game.setAnswer(playerId,answer);
+        game.setAnswer(playerId, answer);
         return game;
     }
 
@@ -114,8 +113,8 @@ public class GameStateImpl implements GameState {
         player.setId(IDGEN.getAndIncrement());
         player.setEmail(email);
         player.setName(email);
-        playersByEmail.put(email,player);
-        playersById.put(player.getId(),player);
+        playersByEmail.put(email, player);
+        playersById.put(player.getId(), player);
         return player;
     }
 
@@ -124,7 +123,7 @@ public class GameStateImpl implements GameState {
         q.setId(IDGEN.getAndIncrement());
         q.setQuestion(question);
         questions.add(q);
-        questionsById.put(q.getId(),q);
+        questionsById.put(q.getId(), q);
         return q;
     }
 }
