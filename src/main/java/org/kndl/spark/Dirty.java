@@ -45,7 +45,8 @@ public class Dirty {
         },new JsonTransformer());
         post("/game/:gameId/answer/:playerId", (request, response) -> {
             Game.SetAnswer answer = gson.fromJson(request.body(),Game.SetAnswer.class);
-            return game.setAnswer(null,null,null);
+            Game g = game.get(Long.parseLong(request.params(":gameId")));
+            return game.setAnswer(g.getId(),answer.getPlayerId(),answer.getAnswer());
         },new JsonTransformer());
         get("/game/:id", (request,response) -> {
             return game.get(Long.parseLong(request.params(":id")));
