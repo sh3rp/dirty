@@ -89,17 +89,18 @@ public class GameStateImpl implements GameState {
     }
 
     @Override
-    public Game setAnswer(long gameId, long playerId, String answer) {
+    public Game setAnswer(long gameId, String playerId, String answer) {
         Game game = gamesById.get(gameId);
         game.setAnswer(playerId,answer);
         return game;
     }
 
     @Override
-    public Game setWinner(long gameId, long userId) {
+    public Game setWinner(long gameId, String userId) {
         Game g = gamesById.get(gameId);
         Player p = playersById.get(userId);
         g.setWinner(p);
+        g.setInProgress(false);
         return g;
     }
 

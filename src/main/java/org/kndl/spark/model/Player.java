@@ -41,4 +41,20 @@ public class Player {
         this.lifetimeScore = lifetimeScore;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Player player = (Player) o;
+
+        if (!email.equals(player.email)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return email.hashCode();
+    }
 }

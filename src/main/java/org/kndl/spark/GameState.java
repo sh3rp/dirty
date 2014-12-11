@@ -11,7 +11,7 @@ public interface GameState {
     public Question randomQuestion();
     public Question newQuestion(String question);
     public Game setQuestion(long gameId, long questionId);
-    public Game setAnswer(long gameId, long userId, String answer);
-    public Game setWinner(long gameId, long userId);
+    public Game setAnswer(long gameId, String userId, String answer);
+    public Game setWinner(long gameId, String userId);
     public Game get(long id);
 }

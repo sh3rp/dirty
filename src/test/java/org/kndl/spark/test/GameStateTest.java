@@ -12,8 +12,7 @@ import org.testng.annotations.Test;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertTrue;
+import static org.testng.AssertJUnit.*;
 
 @Test
 public class GameStateTest {
@@ -79,9 +78,15 @@ public class GameStateTest {
     @Test
     public void setAnswer() {
         Question q = game.newQuestion("What");
-        Game g = game.newGame(HOST,players);
-        game.setQuestion(g.getId(),q.getId());
+        Game g = game.newGame(HOST, players);
+        game.setQuestion(g.getId(), q.getId());
         game.setAnswer(g.getId(),P1,"This");
-        game.setAnswer(g.getId(),P2,"That");
+        game.setAnswer(g.getId(), P2, "That");
+        game.setWinner(g.getId(), P1);
+        assertFalse(g.isInProgress());
+        Player p = new Player();
+        p.setEmail(P1);
+        assertNotNull(g.getWinner());
+        assertTrue(g.getWinner().equals(p));
     }
 }

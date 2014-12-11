@@ -1,5 +1,6 @@
 package org.kndl.spark.model;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,7 +13,7 @@ public class Game {
     private Player host;
     private boolean inProgress;
     private Question currentQuestion;
-    private Map<Long,String> playerAnswers;
+    private Map<String,String> playerAnswers;
     private Player winner;
 
     // request new game
@@ -149,7 +150,26 @@ public class Game {
         this.winner = winner;
     }
 
-    public void setAnswer(long playerId, String answer) {
+    public void setAnswer(String playerId, String answer) {
+        if(playerAnswers == null)
+            playerAnswers = new HashMap<String,String>();
         playerAnswers.put(playerId,answer);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Game game = (Game) o;
+
+        if (id != game.id) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
     }
 }
