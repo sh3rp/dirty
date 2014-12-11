@@ -61,14 +61,14 @@ public class Game {
     }
 
     public static class SetAnswer {
-        private long playerId;
+        private String playerId;
         private String answer;
 
-        public long getPlayerId() {
+        public String getPlayerId() {
             return playerId;
         }
 
-        public void setPlayerId(long playerId) {
+        public void setPlayerId(String playerId) {
             this.playerId = playerId;
         }
 

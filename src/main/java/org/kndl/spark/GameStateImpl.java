@@ -98,7 +98,7 @@ public class GameStateImpl implements GameState {
     @Override
     public Game setWinner(long gameId, String userId) {
         Game g = gamesById.get(gameId);
-        Player p = playersById.get(userId);
+        Player p = playersByEmail.get(userId);
         g.setWinner(p);
         g.setInProgress(false);
         return g;

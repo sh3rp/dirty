@@ -1,6 +1,5 @@
 package org.kndl.spark.test;
 
-import org.junit.Before;
 import org.kndl.spark.GameState;
 import org.kndl.spark.GameStateImpl;
 import org.kndl.spark.model.Game;
@@ -38,9 +37,9 @@ public class GameStateTest {
 
     @Test
     public void newGame() {
-        Game g = game.newGame(HOST,players);
+        Game g = game.newGame(HOST, players);
         Player host = g.getHost();
-        assertEquals(host.getEmail(),HOST);
+        assertEquals(host.getEmail(), HOST);
         Set<Player> players = g.getPlayers();
         Player pants = new Player();
         pants.setEmail(P1);
@@ -69,8 +68,8 @@ public class GameStateTest {
     @Test
     public void setQuestion() {
         Question q = game.newQuestion("What");
-        Game g = game.newGame(HOST,players);
-        game.setQuestion(g.getId(),q.getId());
+        Game g = game.newGame(HOST, players);
+        game.setQuestion(g.getId(), q.getId());
         Game gSet = game.get(g.getId());
         assertTrue(gSet.getCurrentQuestion().equals(q));
     }
@@ -80,9 +79,9 @@ public class GameStateTest {
         Question q = game.newQuestion("What");
         Game g = game.newGame(HOST, players);
         game.setQuestion(g.getId(), q.getId());
-        game.setAnswer(g.getId(),P1,"This");
+        game.setAnswer(g.getId(), P1, "This");
         game.setAnswer(g.getId(), P2, "That");
-        game.setWinner(g.getId(), P1);
+        g = game.setWinner(g.getId(), P1);
         assertFalse(g.isInProgress());
         Player p = new Player();
         p.setEmail(P1);
